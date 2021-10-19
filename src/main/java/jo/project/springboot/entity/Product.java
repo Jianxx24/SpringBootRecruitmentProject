@@ -10,19 +10,19 @@ import javax.persistence.Id;
 @Entity
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long productId;
     private String productName;
     private float price;
     private int quantity;
     private String comment;
 
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {

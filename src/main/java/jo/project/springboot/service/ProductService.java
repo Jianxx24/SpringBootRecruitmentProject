@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+import java.util.List;
 @Service
 public class ProductService {
 
@@ -30,11 +30,15 @@ public class ProductService {
     }
 
     public Product modifyProductById(Product product) {
-        Product modifiedProduct = productRepository.findById(product.getId()).get();
+        Product modifiedProduct = productRepository.findById(product.getProductId()).get();
         modifiedProduct.setProductName(product.getProductName());
         modifiedProduct.setPrice(product.getPrice());
         modifiedProduct.setQuantity(product.getQuantity());
         modifiedProduct.setComment(product.getComment());
         return productRepository.save(modifiedProduct);
+    }
+
+    public List<Product> findAll() {
+        return (List<Product>)productRepository.findAll();
     }
 }

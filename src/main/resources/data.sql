@@ -1,4 +1,4 @@
-INSERT INTO client(user_id, user_name, email_address, password) VALUES
+INSERT INTO client(user_id, username, email_address, password) VALUES
 (1, 'user1', 'user1@example.com', 'password123'),
 (2, 'user2', 'user2@example.com', 'password123'),
 (3, 'user3', 'user3@example.com', 'password123');

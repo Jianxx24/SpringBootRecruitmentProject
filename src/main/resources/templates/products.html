@@ -2,14 +2,73 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Strona</title>
 </head>
 <body>
-<tr th:each="products : ${products}">
-    <td><p th:text="${products.productId}"></p></td>
-    <td><p th:text="${products.productName}"></p></td>
-    <td><p th:text="${products.Price}"></p></td>
-    <td><p th:text="${products.Quantity}"></p></td>
-</tr>
+<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+<div class="alert alert-warning" role="alert" th:text="${warning}" th:if="${warning}"></div>
+<div class="text-white align-items-middle rounded-lg mt-3 p-5 container w-25 shadow-lg bg-dark form-group"><p
+        th:inline="text">Witaj [[${session.client.getUsername}]]!</p>
+    <div class="row">
+    <form th:action="@{/products}">
+        <button type="submit" class="btn btn-secondary">Produkty</button>
+    </form>
+    <form class = "pl-2" th:action="@{/logout}">
+        <button type="submit" class="btn btn-secondary">Wyloguj</button>
+    </form>
+    </div>
+</div>
+<div class="text-white align-items-middle rounded-lg mt-3 p-5 container w-25 shadow-lg bg-dark form-group">
+    <table class="table-responsive text-white table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>ID Produktu</th>
+            <th>Nazwa Produktu</th>
+            <th>Cena Produktu</th>
+            <th>Ilość Produktu</th>
+            <th>Komentarz</th>
+            <th>Modyfikacja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="products : ${products}">
+            <td><p th:text="${products.productId}"></p></td>
+            <td><p th:text="${products.productName}"></p></td>
+            <td><p th:text="${products.Price}"></p></td>
+            <td><p th:text="${products.Quantity}"></p></td>
+            <td><p th:text="${products.Comment}"></p></td>
+            <td>
+                <div class="row pl-2 align-center" th:if="${products.client.UserId==session.client.getUserId}">
+                    <form class="inline" method="post" th:action="@{/products/getmod}">
+                        <input type='hidden' th:value="${products.productId}" name="productId"/>
+
+                        <button type="submit" class="btn btn-secondary">
+                            <span class="iconify" data-icon="octicon:pencil-24"></span>
+                        </button>
+                    </form>
+                    <form class="inline" method="post" th:action="@{/products/remove}">
+                        <input type='hidden' th:value="${products.productId}" name="productId"/>
+                        <button type="submit" class="ml-1 btn btn-secondary">
+                            <span class="iconify" data-icon="octicon:x-24"></span>
+                        </button>
+                    </form>
+                </div>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/products/add}" method="get">
+        <button type="submit" class="btn btn-secondary">Dodaj Produkt</button>
+    </form>
+
+</div>
 </body>
 </html>

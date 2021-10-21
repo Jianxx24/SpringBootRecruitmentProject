@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Strona</title>
+</head>
+<body>
+<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+<div class="alert alert-warning" role="alert" th:text="${warning}" th:if="${warning}"></div>
+<div class="text-white align-items-middle rounded-lg mt-3 p-5 container w-25 shadow-lg bg-dark form-group"><p
+        th:inline="text">Witaj [[${session.client.getUsername}]]!</p>
+    <div class="row">
+        <form th:action="@{/products}">
+            <button type="submit" class="btn btn-secondary">Produkty</button>
+        </form>
+        <form class = "pl-2" th:action="@{/logout}">
+            <button type="submit" class="btn btn-secondary">Wyloguj</button>
+        </form>
+    </div>
+</div>
+<form class="rounded-lg text-white mt-3 p-5 container w-25 shadow-lg bg-dark form-group col px-md-5" method="post"
+      action="@{/products/add}" th:action="@{/products/add}" th:object="${product}">
+    <input type="hidden" class="form-control" th:field="*{productId}" th:value="${product.ProductId}">
+    <input type="hidden" class="form-control" th:field="*{clientId}" th:value="${session.client.getUserId}">
+
+    <div class="form-group">
+        <label>Nazwa Produktu</label>
+        <input type="text"  class="form-control" th:field="*{productName}" value="Produkt">
+    </div>
+
+
+    <div class="form-group">
+        <label>Cena</label>
+        <input type="number" step=".01"  th:field="*{price}" class="form-control" value="25.99">
+    </div>
+
+    <div class="form-group">
+        <label>Ilość Produktu</label>
+        <input type="number" step=".01" th:field="*{quantity}" class="form-control" value="50">
+    </div>
+    <div class="form-group">
+        <label>Komentarz</label>
+        <input type="text"  class="form-control" th:field="*{comment}" value="Komentarz dotyczący produktu">
+    </div>
+
+    <button type="submit" class='mt-2 btn btn-secondary'>Dodaj</button>
+</form>
+
+
+</div>
+</body>
+</html>

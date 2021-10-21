@@ -4,15 +4,25 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css">
+    <meta charset="UTF-8">
+    <title>Strona</title>
 </head>
 <body>
+<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
 <th:block th:if="${clientId == null}">
-    <h2>Zaloguj się</h2>
-    <form action="#" th:action="@{/logowanie}" th:object="${client}" method="post">
-        <p>Nazwa użytkownika: <input type="text" th:field="*{username}" /></p>
-        <p>Hasło: <input type="password" th:field="*{password}" /></p>
-        <p><input type="submit" value="Zaloguj" /> </p>
+    <form action="#" th:action="@{/logowanie}" th:object="${client}"
+          class="rounded-lg text-white mt-3 p-5 container w-25 shadow-lg bg-dark form-group col px-md-5" method="post">
+        <h2>Zaloguj się</h2>
+        <p class="">Nazwa użytkownika: <input class=" d-flex justify-content-center " type="text"
+                                              th:field="*{username}"/></p>
+        <p class="">Hasło: <input class=" d-flex justify-content-center " type="password" th:field="*{password}"/></p>
+        <button type="submit" class='mt-2 btn btn-secondary'>Zaloguj</button>
     </form>
 
 </th:block>

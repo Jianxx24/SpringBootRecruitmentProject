@@ -1,10 +1,7 @@
 package jo.project.springboot.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
+import javax.persistence.*;
+import java.util.List;
 @Entity
 public class Client {
     @Id
@@ -13,6 +10,8 @@ public class Client {
     private String username;
     private String emailAddress;
     private String password;
+    @OneToMany(mappedBy = "client")
+    private List<Product> products;
 
     public long getUserId() {
         return userId;

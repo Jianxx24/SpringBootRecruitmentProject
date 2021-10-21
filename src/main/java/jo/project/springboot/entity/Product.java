@@ -1,21 +1,22 @@
 package jo.project.springboot.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 // Creating Entity File for the product / Tworzenie pliku encji dla produktu
 
 @Entity
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
+    @SequenceGenerator(name = "product_sequence", sequenceName = "product_sequence", allocationSize = 1)
     private Long productId;
     private String productName;
     private float price;
     private int quantity;
     private String comment;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private Client client;
 
     public Long getProductId() {
         return productId;
@@ -23,6 +24,14 @@ public class Product {
 
     public void setProductId(Long productId) {
         this.productId = productId;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public String getProductName() {
@@ -55,5 +64,16 @@ public class Product {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", comment='" + comment + '\'' +
+                '}';
     }
 }
